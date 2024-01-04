@@ -109,7 +109,12 @@ class GameController extends Controller
         // If someone has won, it needs to return either GamePlayer::Human or GamePlayer::Robot.
         // =============================================================================================================
 
-        return null;
+        if ($this->someoneHasWon( $game ) && $game->getLastPlayer() === GamePlayer::Human)
+            return GamePlayer::Human;
+        elseif ($this->someoneHasWon( $game ) && $game->getLastPlayer() === GamePlayer::Robot)
+            return GamePlayer::Robot;
+        else
+            return null;
     }
 
     /**
