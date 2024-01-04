@@ -132,7 +132,10 @@ class GameController extends Controller
         // Inside of $player you have the player which wants to play now.
         // If he is allowed to play, you have to return true, otherwise you have to return false.
 
-        return true;
+        if ($game->getLastPlayer() === $player)
+            return false;
+        if ($game->getLastPlayer() !== $player)
+            return true;
     }
 
     /**
