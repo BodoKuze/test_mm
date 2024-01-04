@@ -50,18 +50,20 @@ class GameController extends Controller
         // remove spaces and line breaks ;)
         // =============================================================================================================
 
-        for ($r = 0; $r <= 2; $r++) {
+        for ($r = 0; $r <= 3; $r++) {
             if (    // Check all rows
                 $game->getRow($r)->getSpace( 0 ) === $game->getRow(0)->getSpace( 1 ) &&
                 $game->getRow($r)->getSpace( 0 ) === $game->getRow(0)->getSpace( 2 ) &&
+                $game->getRow($r)->getSpace( 0 ) === $game->getRow(0)->getSpace( 3 ) &&
                 $game->getRow($r)->getSpace( 0 ) !== GameMark::None
             ) return true;
         }
 
-        for ($c = 0; $c <= 2; $c++) {
+        for ($c = 0; $c <= 3; $c++) {
             if (    // Check all columns
                 $game->getColumn($c)->getSpace( 0 ) === $game->getColumn(0)->getSpace( 1 ) &&
                 $game->getColumn($c)->getSpace( 0 ) === $game->getColumn(0)->getSpace( 2 ) &&
+                $game->getColumn($c)->getSpace( 0 ) === $game->getColumn(0)->getSpace( 3 ) &&
                 $game->getColumn($c)->getSpace( 0 ) !== GameMark::None
             ) return true;
         }
@@ -69,9 +71,11 @@ class GameController extends Controller
         if (    // Check main and anit-diagonal
             $game->getMainDiagonal(0)->getSpace( 0 ) === $game->getMainDiagonal(0)->getSpace( 1 ) &&
             $game->getMainDiagonal(0)->getSpace( 0 ) === $game->getMainDiagonal(0)->getSpace( 2 ) &&
+            $game->getMainDiagonal(0)->getSpace( 0 ) === $game->getMainDiagonal(0)->getSpace( 3 ) &&
             $game->getMainDiagonal(0)->getSpace( 0 ) !== GameMark::None ||
             $game->getAntiDiagonal(0)->getSpace( 0 ) === $game->getAntiDiagonal(0)->getSpace( 1 ) &&
             $game->getAntiDiagonal(0)->getSpace( 0 ) === $game->getAntiDiagonal(0)->getSpace( 2 ) &&
+            $game->getAntiDiagonal(0)->getSpace( 0 ) === $game->getAntiDiagonal(0)->getSpace( 3 ) &&
             $game->getAntiDiagonal(0)->getSpace( 0 ) !== GameMark::None
         ) return true;
 
@@ -133,7 +137,7 @@ class GameController extends Controller
 
         // Check if the given position is actually valid; can't have the player draw a cross on the table next to the
         // game board ;)
-        if ($x < 0 || $x > 2 || $y < 0 || $y > 2)
+        if ($x < 0 || $x > 3 || $y < 0 || $y > 3)
             return response("Position outside of the game board")->setStatusCode(422)->header('Content-Type', 'text/plain');
 
         // Prevent the player from playing if the game has already ended
